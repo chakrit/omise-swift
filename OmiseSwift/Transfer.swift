@@ -50,9 +50,9 @@ public class Transfer: ResourceObject {
 }
 
 public class TransferParams: Params {
-    public var amount: Int? {
-        get { return get("amount", IntConverter.self) }
-        set { set("amount", IntConverter.self, toValue: newValue) }
+    public var amount: Int64? {
+        get { return get("amount", Int64Converter.self) }
+        set { set("amount", Int64Converter.self, toValue: newValue) }
     }
     
     public var recipient: String? {
