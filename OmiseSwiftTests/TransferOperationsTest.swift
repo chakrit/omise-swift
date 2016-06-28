@@ -14,7 +14,7 @@ class TransferOperationsTest: OmiseTestCase {
         return Client(config: config)
     }
     
-    func testTransferRetrive() {
+    func testTransferRetrieve() {
         let expectation = expectationWithDescription("transfer result")
         
         let request = Transfer.retrieve(using: testClient, id: "trsf_test_54h7uzmwu5v79mgri6d") { (result) in
