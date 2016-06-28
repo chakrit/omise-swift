@@ -106,8 +106,3 @@ class TransferOperationsTest: OmiseTestCase {
         waitForExpectationsWithTimeout(15.0, handler: nil)
     }
 }
-
-
-
-
-
