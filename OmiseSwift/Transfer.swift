@@ -73,14 +73,3 @@ extension Transfer: Updatable {
 }
 
 extension Transfer: Destroyable { }
-
-
-
-
-
-
-
-
-
-
-
