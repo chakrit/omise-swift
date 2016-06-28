@@ -46,3 +46,39 @@ public class Transfer: ResourceObject {
         set { set("transaction", StringConverter.self, toValue: newValue) }
     }
 }
+
+public class TransferParams: Params {
+    public var amount: Int? {
+        get { return get("amount", IntConverter.self) }
+        set { set("amount", IntConverter.self, toValue: newValue) }
+    }
+    
+    public var recipient: String? {
+        get { return get("recipient", StringConverter.self) }
+        set { set("recipient", StringConverter.self, toValue: newValue) }
+    }
+}
+
+extension Transfer: Listable { }
+extension Transfer: InstanceRetrievable { }
+
+extension Transfer: Creatable {
+    public typealias CreateParams = TransferParams
+}
+
+extension Transfer: Updatable {
+    public typealias UpdateParams = TransferParams
+}
+
+extension Transfer: Destroyable { }
+
+
+
+
+
+
+
+
+
+
+

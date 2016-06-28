@@ -128,6 +128,8 @@
 		98256FEB1D22445100F91436 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A0F98A1D215ECC00CA3D35 /* Globals.swift */; };
 		98256FEC1D22472900F91436 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C4E4C1D223FF700A62F2C /* Updatable.swift */; };
 		98256FED1D22473700F91436 /* Destroyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C4E4E1D22412A00A62F2C /* Destroyable.swift */; };
+		98256FEF1D224BAA00F91436 /* TransferOperationsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98256FEE1D224BAA00F91436 /* TransferOperationsTest.swift */; };
+		98256FF01D224BAA00F91436 /* TransferOperationsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98256FEE1D224BAA00F91436 /* TransferOperationsTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +218,7 @@
 		22BF9BBA1CD2389D00CD3CAD /* RecipientType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientType.swift; sourceTree = "<group>"; };
 		22BF9BBC1CD23AB600CD3CAD /* Refund.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Refund.swift; sourceTree = "<group>"; };
 		22BF9BBE1CD23B1400CD3CAD /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		98256FEE1D224BAA00F91436 /* TransferOperationsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferOperationsTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -386,6 +389,7 @@
 				229873991CCF960900970F8C /* AccountOperationsTest.swift */,
 				22BF9B9C1CD1F67600CD3CAD /* BalanceOperationsTest.swift */,
 				22BF9B9E1CD1F76100CD3CAD /* LiveTest.swift */,
+				98256FEE1D224BAA00F91436 /* TransferOperationsTest.swift */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -680,6 +684,7 @@
 				2218E0A21D1D419C006E0245 /* BalanceOperationsTest.swift in Sources */,
 				2298739A1CCF960900970F8C /* AccountOperationsTest.swift in Sources */,
 				220F53621CD8770100344B06 /* OmiseObjectTest.swift in Sources */,
+				98256FEF1D224BAA00F91436 /* TransferOperationsTest.swift in Sources */,
 				2298733B1CCDF99700970F8C /* JSONTest.swift in Sources */,
 				229873761CCE29D700970F8C /* OperationTest.swift in Sources */,
 				22112D0A1CC7910700D0DB54 /* ConfigTest.swift in Sources */,
@@ -697,6 +702,7 @@
 				2218E0A31D1D41A1006E0245 /* BalanceOperationsTest.swift in Sources */,
 				2298739B1CCF960900970F8C /* AccountOperationsTest.swift in Sources */,
 				220F53631CD8770100344B06 /* OmiseObjectTest.swift in Sources */,
+				98256FF01D224BAA00F91436 /* TransferOperationsTest.swift in Sources */,
 				2298733C1CCDF99800970F8C /* JSONTest.swift in Sources */,
 				229873771CCE29D700970F8C /* OperationTest.swift in Sources */,
 				22112D0B1CC7910700D0DB54 /* ConfigTest.swift in Sources */,
