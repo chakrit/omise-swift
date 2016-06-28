@@ -60,7 +60,7 @@ public class RecipientParams: Params {
         set { set("email", StringConverter.self, toValue: newValue) }
     }
     
-    public var recipientDescription: String? {
+    public var description: String? {
         get { return get("description", StringConverter.self) }
         set { set("description", StringConverter.self, toValue: newValue) }
     }
