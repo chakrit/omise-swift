@@ -29,7 +29,7 @@ public class Request<TResult: OmiseObject>: NSObject {
         request.addValue(auth, forHTTPHeaderField: "Authorization")
         
         guard !(request.HTTPMethod == "GET" && operation.payload != nil) else {
-            omiseWarn("GET operations do not support payload.")
+            omiseWarn("ignoring payloads for HTTP GET operation.")
             return request
         }
         
