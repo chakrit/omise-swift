@@ -26,8 +26,14 @@ public class Request<TResult: OmiseObject>: NSObject {
         request.HTTPMethod = operation.method
         request.cachePolicy = .UseProtocolCachePolicy
         request.timeoutInterval = 6.0
-        request.HTTPBody = operation.payload
         request.addValue(auth, forHTTPHeaderField: "Authorization")
+        
+        guard !(request.HTTPMethod == "GET" && operation.payload != nil) else {
+            omiseWarn("GET operations do not support payload.")
+            return request
+        }
+        
+        request.HTTPBody = operation.payload
         return request
     }
     
