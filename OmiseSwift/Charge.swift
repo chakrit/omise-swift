@@ -211,29 +211,29 @@ extension Charge {
 }
 
 func exampleCharge() {
-    Charge.list { (result) in
+    _ = Charge.list { (result) in
         switch result {
-        case let .Success(charges):
+        case let .success(charges):
             print("charges: \(charges.data[0].id)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }
     
-    Charge.retrieve(id: "chrg_test_123") { (result) in
+    _ = Charge.retrieve(id: "chrg_test_123") { (result) in
         switch result {
-        case let .Success(charge):
+        case let .success(charge):
             print("charge: \(charge.id) \(charge.amount)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }
     
-    Charge.reverse(id: "chrg_test_123") { (result) in
+    _ = Charge.reverse(id: "chrg_test_123") { (result) in
         switch result {
-        case let .Success(charge):
+        case let .success(charge):
             print("reversed charge: \(charge.id)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }

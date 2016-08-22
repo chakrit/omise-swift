@@ -5,7 +5,7 @@ public protocol SingletonRetrievable { }
 public extension SingletonRetrievable where Self: ResourceObject {
     public typealias SingletonRetrieveOperation = Operation<Self>
     
-    public static func retrieveOperation(parent: ResourceObject?) -> SingletonRetrieveOperation {
+    public static func retrieveOperation(_ parent: ResourceObject?) -> SingletonRetrieveOperation {
         return SingletonRetrieveOperation(
             endpoint: info.endpoint,
             method: "GET",

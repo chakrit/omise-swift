@@ -5,7 +5,7 @@ public protocol Destroyable { }
 public extension Destroyable where Self: ResourceObject {
     public typealias DestroyOperation = Operation<Self>
     
-    public static func destroyOperation(parent: ResourceObject?, id: String) -> DestroyOperation {
+    public static func destroyOperation(_ parent: ResourceObject?, id: String) -> DestroyOperation {
         return DestroyOperation(
             endpoint: info.endpoint,
             method: "DELETE",
@@ -18,7 +18,7 @@ public extension Destroyable where Self: ResourceObject {
             return nil
         }
         
-        let operation = self.destroyOperation(parent)
+        let operation = self.destroyOperation(parent, id: id)
         let client = resolveClient(given: given)
         return client.call(operation, callback: callback)
     }

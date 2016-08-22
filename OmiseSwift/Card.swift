@@ -1,7 +1,7 @@
 import Foundation
 
-public class Card: ResourceObject {
-    public override class var info: ResourceInfo {
+open class Card: ResourceObject {
+    open override class var info: ResourceInfo {
         return ResourceInfo(parentType: Customer.self, path: "/cards")
     }
     
@@ -123,11 +123,11 @@ func exampleCard() {
     let customer = Customer()
     customer.id = "cust_test_123"
     
-    Card.list(parent: customer) { (result) in
+    _ = Card.list(parent: customer) { (result) in
         switch result {
-        case let .Success(cards):
+        case let .success(cards):
             print("cards: \(cards)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }

@@ -7,7 +7,7 @@ public protocol Updatable {
 public extension Updatable where Self: ResourceObject {
     public typealias UpdateOperation = Operation<Self>
     
-    public static func updateOperation(parent: ResourceObject?, id: String, params: UpdateParams) -> UpdateOperation {
+    public static func updateOperation(_ parent: ResourceObject?, id: String, params: UpdateParams) -> UpdateOperation {
         return UpdateOperation(
             endpoint: info.endpoint,
             method: "PATCH",

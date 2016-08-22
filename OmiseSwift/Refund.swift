@@ -1,7 +1,7 @@
 import Foundation
 
-public class Refund: ResourceObject {
-    public override class var info: ResourceInfo {
+open class Refund: ResourceObject {
+    open override class var info: ResourceInfo {
         return ResourceInfo(parentType: Charge.self, path: "/refunds")
     }
     
@@ -67,11 +67,11 @@ func exampleRefund() {
     params.amount = 100000 // 1,000.00 THB
     params.void = true
     
-    Refund.create(parent: charge, params: params) { (result) in
+    _ = Refund.create(parent: charge, params: params) { (result) in
         switch result {
-        case let .Success(refund):
+        case let .success(refund):
             print("created refund: \(refund.id)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }

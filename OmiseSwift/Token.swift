@@ -1,7 +1,7 @@
 import Foundation
 
-public class Token: ResourceObject {
-    public override class var info: ResourceInfo {
+open class Token: ResourceObject {
+    open override class var info: ResourceInfo {
         return ResourceInfo(endpoint: .Vault, path: "/tokens")
     }
     
@@ -80,11 +80,11 @@ func exampleToken() {
     params.expirationYear = 2020
     params.securityCode = "123"
     
-    Token.create(params: params) { (result) in
+    _ = Token.create(params: params) { (result) in
         switch result {
-        case let .Success(token):
+        case let .success(token):
             print("token: \(token.id)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }

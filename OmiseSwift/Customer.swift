@@ -66,27 +66,27 @@ extension Customer: Searchable {
 extension Customer: Destroyable { }
 
 func exampleCustomer() {
-    let today = NSDate()
-    let yesterday = today.dateByAddingTimeInterval(-86400)
+    let today = Date()
+    let yesterday = today.addingTimeInterval(-86400)
     
     let listParams = ListParams()
     listParams.from = yesterday
     listParams.to = today
     
-    Customer.list(params: listParams) { (result) in
+    _ = Customer.list(params: listParams) { (result) in
         switch result {
-        case let .Success(list):
+        case let .success(list):
             print("customers: \(list.data.count)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }
     
-    Customer.retrieve(id: "cust_123") { (result) in
+    _ = Customer.retrieve(id: "cust_123") { (result) in
         switch result {
-        case let .Success(customer):
+        case let .success(customer):
             print("customer: \(customer.email)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }

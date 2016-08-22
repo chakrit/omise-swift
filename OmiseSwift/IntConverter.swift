@@ -3,13 +3,13 @@ import Foundation
 public class IntConverter: Converter {
     public typealias Target = Int
     
-    public static func convertFromAttribute(value: NSObject?) -> Target? {
+    public static func convertFromAttribute(_ value: NSObject?) -> Target? {
         guard let n = value as? NSNumber else { return nil }
-        return n.integerValue
+        return n.intValue
     }
     
-    public static func convertToAttribute(value: Target?) -> NSObject? {
+    public static func convertToAttribute(_ value: Target?) -> NSObject? {
         guard let n = value else { return nil }
-        return NSNumber(long: n)
+        return NSNumber(value: n)
     }
 }

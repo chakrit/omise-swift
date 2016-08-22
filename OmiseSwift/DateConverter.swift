@@ -1,22 +1,22 @@
 import Foundation
 
 public class DateConverter: Converter {
-    public typealias Target = NSDate
+    public typealias Target = Date
     
-    static let formatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    static let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         return formatter
     }()
     
-    public static func convertFromAttribute(value: NSObject?) -> Target? {
+    public static func convertFromAttribute(_ value: NSObject?) -> Target? {
         guard let s = value as? NSString else { return nil }
-        return formatter.dateFromString(s as String)
+        return formatter.date(from: s as String)
     }
     
-    public static func convertToAttribute(value: Target?) -> NSObject? {
+    public static func convertToAttribute(_ value: Target?) -> NSObject? {
         guard let d = value else { return nil }
-        return formatter.stringFromDate(d)
+        return formatter.string(from: d) as NSString
     }
 }

@@ -5,7 +5,7 @@ public protocol Retrievable { }
 public extension Retrievable where Self: ResourceObject {
     public typealias RetrieveOperation = Operation<Self>
     
-    public static func retrieveOperation(parent: ResourceObject?, id: String) -> RetrieveOperation {
+    public static func retrieveOperation(_ parent: ResourceObject?, id: String) -> RetrieveOperation {
         return RetrieveOperation(
             endpoint: info.endpoint,
             method: "GET",

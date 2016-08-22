@@ -7,7 +7,7 @@ public protocol Searchable {
 
 extension Searchable {
     public static var scopeName: String {
-        return String(self).lowercaseString
+        return String(describing: self).lowercased()
     }
 }
 
@@ -64,7 +64,7 @@ public extension Searchable where Self: ResourceObject {
             return nil
         }
         
-        let operation = self.searchOperation(parent, params: params)
+        let operation = self.searchOperation(parent: parent, params: params)
         let client = resolveClient(given: given)
         return client.call(operation, callback: callback)
     }

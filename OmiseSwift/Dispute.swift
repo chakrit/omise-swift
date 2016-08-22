@@ -83,13 +83,12 @@ extension Dispute {
 }
 
 func exampleDispute() {
-    let _: [DisputeStatus] = [.Open, .Pending, .Closed] // valid statuses
-    
-    Dispute.list(state: .Open) { (result) in
+    let _: [DisputeStatus] = [.open, .pending, .closed] // valid statuses
+    _ = Dispute.list(state: .open) { (result) in
         switch result {
-        case let .Success(list):
+        case let .success(list):
             print("open disputes: \(list.data.count)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }

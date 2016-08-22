@@ -1,22 +1,22 @@
 import Foundation
 
-public class Account: ResourceObject {
-    public override class var info: ResourceInfo { return ResourceInfo(path: "/account") }
+open class Account: ResourceObject {
+    open override class var info: ResourceInfo { return ResourceInfo(path: "/account") }
     
-    public var email: String? {
+    open var email: String? {
         get { return get("email", StringConverter.self) }
-        set { set("email", StringConverter.self, toValue: newValue) }
+      set { set("email", StringConverter.self, toValue: newValue) }
     }
 }
 
 extension Account: SingletonRetrievable { }
 
 func exampleAccount() {
-    Account.retrieve { (result) in
+    _ = Account.retrieve { (result) in
         switch result {
-        case let .Success(result):
+        case let .success(result):
             print("account: \(result.email)")
-        case let .Fail(err):
+        case let .fail(err):
             print("error: \(err)")
         }
     }
