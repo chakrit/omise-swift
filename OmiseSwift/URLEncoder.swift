@@ -10,8 +10,8 @@ open class URLEncoder {
         return dict.flatMap(encodePair(parentKey))
     }
     
-    fileprivate class func encodePair(_ parentKey: String?) -> (String, NSObject?) -> [URLQueryItem] {
-        return { (key: String, value: NSObject?) in
+    fileprivate class func encodePair(_ parentKey: String?) -> (String, Any?) -> [URLQueryItem] {
+        return { (key: String, value: Any?) in
             let nestedKey: String
             if let pkey = parentKey {
                 nestedKey = "\(pkey)[\(key)]"
@@ -27,7 +27,7 @@ open class URLEncoder {
         }
     }
     
-    fileprivate class func encodeScalar(_ value: NSObject?) -> String? {
+    fileprivate class func encodeScalar(_ value: Any?) -> String? {
         switch value {
         case let s as String:
             return s
@@ -39,17 +39,11 @@ open class URLEncoder {
             
             return str
             
-        case let n as NSNumber:
-            switch CFNumberGetType(n as CFNumber) {
-            case .charType:
-                return n.boolValue ? "true" : "false"
-            default:
-                return n.stringValue
-            }
-            
-            
-        default:
-            return nil
+        case let b as Bool:
+            return b ? "true" : "false"
+        
+        case let n:
+            return "\(n)"
         }
     }
 }

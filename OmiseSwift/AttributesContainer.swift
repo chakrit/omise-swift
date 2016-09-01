@@ -1,6 +1,6 @@
 import Foundation
 
-public typealias JSONAttributes = [String: NSObject]
+public typealias JSONAttributes = [String: Any]
 
 public protocol AttributesContainer: class {
     var attributes: JSONAttributes { get set }
@@ -12,7 +12,7 @@ public protocol AttributesContainer: class {
 // convenience getters/setters
 public extension AttributesContainer {
     public init(id: String) {
-        self.init(attributes: ["id": id as NSObject])
+        self.init(attributes: ["id": id])
     }
     
     public func get<TConv: Converter>(_ key: String, _ converter: TConv.Type) -> TConv.Target? {
@@ -30,7 +30,7 @@ public extension AttributesContainer {
     }
     
     public func setList<TItem: AttributesContainer>(_ key: String, _ itemType: TItem.Type, toValue value: [TItem]) {
-        attributes[key] = value.map({ (model) -> JSONAttributes in model.attributes }) as NSObject
+        attributes[key] = value.map({ (model) -> JSONAttributes in model.attributes })
     }
     
     public func getChild<TChild: AttributesContainer>(_ key: String, _ childType: TChild.Type) -> TChild? {

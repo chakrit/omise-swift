@@ -10,13 +10,13 @@ public class DateConverter: Converter {
         return formatter
     }()
     
-    public static func convertFromAttribute(_ value: NSObject?) -> Target? {
-        guard let s = value as? NSString else { return nil }
-        return formatter.date(from: s as String)
+    public static func convertFromAttribute(_ value: Any?) -> Target? {
+        guard let s = value as? String else { return nil }
+        return formatter.date(from: s)
     }
     
-    public static func convertToAttribute(_ value: Target?) -> NSObject? {
+    public static func convertToAttribute(_ value: Target?) -> Any? {
         guard let d = value else { return nil }
-        return formatter.string(from: d) as NSString
+        return formatter.string(from: d)
     }
 }

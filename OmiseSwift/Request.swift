@@ -19,7 +19,7 @@ open class Request<TResult: OmiseObject>: NSObject {
             throw OmiseError.unexpected("requested operation has invalid url.")
         }
         
-        let apiKey = try selectApiKey(config, host: host)
+        let apiKey = try selectAPIKey(config, host: host)
         let auth = try encodeApiKeyForAuthorization(apiKey)
         
         let request = NSMutableURLRequest(url: operation.url as URL)
@@ -37,7 +37,7 @@ open class Request<TResult: OmiseObject>: NSObject {
         return request as URLRequest
     }
     
-    static func selectApiKey(_ config: Config, host: String) throws -> String {
+    static func selectAPIKey(_ config: Config, host: String) throws -> String {
         let key: String?
         if host.contains("vault.omise.co") {
             key = config.publicKey
