@@ -1,8 +1,8 @@
 import Foundation
 
 public enum Endpoint: String {
-    case Vault = "https://vault.omise.co"
-    case API = "https://api.omise.co"
+    case vault = "https://vault.omise.co"
+    case api = "https://api.omise.co"
     
     var url: URL {
         guard let url = URL(string: rawValue) else {

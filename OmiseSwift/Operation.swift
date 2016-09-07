@@ -10,11 +10,11 @@ open class Operation<TResult: OmiseObject> {
     open let params: Params?
     
     open var url: URL {
-        return buildURL()
+        return makeURL()
     }
     
     open var payload: Data? {
-        return buildPayload()
+        return makePayload()
     }
     
     public init(endpoint: Endpoint, method: String, paths: [String], params: Params? = nil) {
@@ -24,7 +24,7 @@ open class Operation<TResult: OmiseObject> {
         self.params = params
     }
     
-    fileprivate func buildURL() -> URL {
+    fileprivate func makeURL() -> URL {
         let url = pathComponents.reduce(endpoint.url as URL) { (url, segment) -> URL in
             return url.appendingPathComponent(segment)
         }
@@ -50,7 +50,7 @@ open class Operation<TResult: OmiseObject> {
         return parameterizedUrl
     }
     
-    fileprivate func buildPayload() -> Data? {
+    fileprivate func makePayload() -> Data? {
         guard let params = self.params else {
             return nil
         }
@@ -61,6 +61,6 @@ open class Operation<TResult: OmiseObject> {
         }
         
         urlComponents.queryItems = URLEncoder.encode(params.normalizedAttributes)
-        return urlComponents.percentEncodedQuery?.data(using: String.Encoding.utf8)
+        return urlComponents.percentEncodedQuery?.data(using: .utf8)
     }
 }

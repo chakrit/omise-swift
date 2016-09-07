@@ -10,12 +10,12 @@ public class DateConverter: Converter {
         return formatter
     }()
     
-    public static func convertFromAttribute(_ value: Any?) -> Target? {
+    public static func convert(fromAttribute value: Any?) -> Target? {
         guard let s = value as? String else { return nil }
         return formatter.date(from: s)
     }
     
-    public static func convertToAttribute(_ value: Target?) -> Any? {
+    public static func convert(fromValue value: Target?) -> Any? {
         guard let d = value else { return nil }
         return formatter.string(from: d)
     }

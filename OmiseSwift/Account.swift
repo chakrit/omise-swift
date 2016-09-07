@@ -5,7 +5,7 @@ open class Account: ResourceObject {
     
     open var email: String? {
         get { return get("email", StringConverter.self) }
-      set { set("email", StringConverter.self, toValue: newValue) }
+        set { set("email", StringConverter.self, toValue: newValue) }
     }
 }
 

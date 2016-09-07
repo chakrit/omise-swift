@@ -16,13 +16,13 @@ open class Request<TResult: OmiseObject>: NSObject {
         super.init()
     }
     
-    static func buildURLRequest(_ config: Config, operation: Op) throws -> URLRequest {
+    static func makeURLRequest(fromConfig config: Config, operation: Op) throws -> URLRequest {
         guard let host = operation.url.host else {
             throw OmiseError.unexpected("requested operation has invalid url.")
         }
         
-        let apiKey = try selectAPIKey(config, host: host)
-        let auth = try encodeAuthorizationHeaderWithAPIKey(apiKey)
+        let apiKey = try selectAPIKey(fromConfig: config, host: host)
+        let auth = try encodeAuthorizationHeader(withAPIKey: apiKey)
         
         var request = URLRequest(url: operation.url as URL)
         request.httpMethod = operation.method
@@ -39,7 +39,7 @@ open class Request<TResult: OmiseObject>: NSObject {
         return request as URLRequest
     }
     
-    static func selectAPIKey(_ config: Config, host: String) throws -> String {
+    static func selectAPIKey(fromConfig config: Config, host: String) throws -> String {
         let key = config.apiKey(forHost: host)
         
         guard let resolvedKey = key else {
@@ -49,7 +49,7 @@ open class Request<TResult: OmiseObject>: NSObject {
         return resolvedKey
     }
     
-    static func encodeAuthorizationHeaderWithAPIKey(_ apiKey: String) throws -> String {
+    static func encodeAuthorizationHeader(withAPIKey apiKey: String) throws -> String {
         let data = "\(apiKey):X".data(using: String.Encoding.utf8)
         guard let md5 = data?.base64EncodedString(options: .lineLength64Characters) else {
             throw OmiseError.configuration("bad API key (encoding failed.)")
@@ -60,7 +60,7 @@ open class Request<TResult: OmiseObject>: NSObject {
     
     
     func start() throws -> Self {
-        let urlRequest = try Request.buildURLRequest(client.config, operation: operation)
+        let urlRequest = try Request.makeURLRequest(fromConfig: client.config, operation: operation)
         let dataTask = client.session.dataTask(with: urlRequest, completionHandler: didComplete)
         dataTask.resume()
         return self
@@ -99,7 +99,6 @@ open class Request<TResult: OmiseObject>: NSObject {
             default:
                 return performCallback(.fail(.unexpected("unrecognized HTTP status code: \(httpResponse.statusCode)")))
             }
-            
         } catch let err as NSError {
             return performCallback(.fail(.io(err)))
         } catch let err as OmiseError {

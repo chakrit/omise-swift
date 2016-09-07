@@ -64,7 +64,7 @@ func exampleRefund() {
     charge.id = "chrg_test_123"
     
     let params = RefundParams()
-    params.amount = 100000 // 1,000.00 THB
+    params.amount = 1_000_00 // 1,000.00 THB
     params.void = true
     
     _ = Refund.create(parent: charge, params: params) { (result) in

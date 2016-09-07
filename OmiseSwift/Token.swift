@@ -2,7 +2,7 @@ import Foundation
 
 open class Token: ResourceObject {
     open override class var info: ResourceInfo {
-        return ResourceInfo(endpoint: .Vault, path: "/tokens")
+        return ResourceInfo(endpoint: .vault, path: "/tokens")
     }
     
     public var used: Bool? {
@@ -62,7 +62,7 @@ extension Token { // can't use Retrievable because this uses the API endpoint in
     
     public static func retrieve(using given: Client? = nil, id: String, callback: RetrieveOperation.Callback) -> Request<RetrieveOperation.Result>? {
         let operation = RetrieveOperation(
-            endpoint: Endpoint.API,
+            endpoint: .api,
             method: "GET",
             paths: [info.path, id]
         )
@@ -74,7 +74,7 @@ extension Token { // can't use Retrievable because this uses the API endpoint in
 
 func exampleToken() {
     let params = TokenParams()
-    params.number = "4242424242424242"
+    params.number = "4242_4242_4242_4242"
     params.name = "JOHN SMITH"
     params.expirationMonth = 10
     params.expirationYear = 2020

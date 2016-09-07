@@ -10,7 +10,7 @@ public class DateComponentsConverter: Converter {
         return scanner
     }
     
-    public static func convertFromAttribute(_ value: Any?) -> Target? {
+    public static func convert(fromAttribute value: Any?) -> Target? {
         guard let s = value as? String else { return nil }
         let scanner = makeScanner(forString: s)
         let year: Int
@@ -50,7 +50,7 @@ public class DateComponentsConverter: Converter {
         return components
     }
     
-    public static func convertToAttribute(_ value: Target?) -> Any? {
+    public static func convert(fromValue value: Target?) -> Any? {
         guard let dateComponents = value,
             (dateComponents.calendar?.identifier ?? Calendar.current.identifier) == .gregorian else { return nil }
         return "\(dateComponents.year)-\(dateComponents.month)-\(dateComponents.day)" as NSString

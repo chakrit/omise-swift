@@ -36,13 +36,13 @@ public extension Listable where Self: ResourceObject {
         return ListOperation(
             endpoint: info.endpoint,
             method: "GET",
-            paths: buildResourcePaths(self, parent: parent),
+            paths: makeResourcePathsWith(context: self, parent: parent),
             params: params
         )
     }
     
     public static func list(using given: Client? = nil, parent: ResourceObject? = nil, params: ListParams? = nil, callback: ListOperation.Callback?) -> Request<ListOperation.Result>? {
-        guard checkParent(self, parent: parent) else {
+        guard checkParent(withContext: self, parent: parent) else {
             return nil
         }
         

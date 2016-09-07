@@ -16,11 +16,11 @@ public extension AttributesContainer {
     }
     
     public func get<TConv: Converter>(_ key: String, _ converter: TConv.Type) -> TConv.Target? {
-        return TConv.convertFromAttribute(self.attributes[key])
+        return TConv.convert(fromAttribute: self.attributes[key])
     }
     
     public func set<TConv: Converter>(_ key: String, _ converter: TConv.Type, toValue value: TConv.Target?) {
-        self.attributes[key] = TConv.convertToAttribute(value)
+        self.attributes[key] = TConv.convert(fromValue: value)
     }
     
     // TODO: Cache lists

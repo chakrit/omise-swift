@@ -9,12 +9,12 @@ public extension Retrievable where Self: ResourceObject {
         return RetrieveOperation(
             endpoint: info.endpoint,
             method: "GET",
-            paths: buildResourcePaths(self, parent: parent, id: id)
+            paths: makeResourcePathsWith(context: self, parent: parent, id: id)
         )
     }
     
     public static func retrieve(using given: Client? = nil, parent: ResourceObject? = nil, id: String, callback: RetrieveOperation.Callback) -> Request<RetrieveOperation.Result>? {
-        guard checkParent(self, parent: parent) else {
+        guard checkParent(withContext: self, parent: parent) else {
             return nil
         }
         

@@ -33,7 +33,7 @@ open class URLEncoder {
             return s
             
         case let d as Date:
-            guard let str = DateConverter.convertToAttribute(d) as? String else {
+            guard let str = DateConverter.convert(fromValue: d) as? String else {
                 return nil
             }
             

@@ -4,7 +4,7 @@ import Omise
 
 class JSONTest: OmiseTestCase {
     func testAccount() {
-        let account: Account = buildFromFixtures(withName: "account")
+        let account: Account = makeObject(fromFixturesWithName: "account")
         XCTAssertEqual(account.object, "account")
         XCTAssertEqual(account.id, "acct_4x7d2wtqnj2f4klrfsc")
         XCTAssertEqual(account.email, "gedeon@gedeon.be")
@@ -12,7 +12,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testBalance() {
-        let balance: Balance = buildFromFixtures(withName: "balance")
+        let balance: Balance = makeObject(fromFixturesWithName: "balance")
         XCTAssertEqual(balance.object, "balance")
         XCTAssertEqual(balance.live, false)
         XCTAssertEqual(balance.available, 380470)
@@ -21,7 +21,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testBankAccount() {
-        let bankAccount: BankAccount = buildFromFixtures(withName: "bank_account")
+        let bankAccount: BankAccount = makeObject(fromFixturesWithName: "bank_account")
         XCTAssertEqual(bankAccount.object, "bank_account")
         XCTAssertEqual(bankAccount.brand, "bbl")
         XCTAssertEqual(bankAccount.number, "1234567890")
@@ -30,7 +30,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testCard() {
-        let card: Card = buildFromFixtures(withName: "card")
+        let card: Card = makeObject(fromFixturesWithName: "card")
         XCTAssertEqual(card.object, "card")
         XCTAssertEqual(card.id, "card_test_5086xl7amxfysl0ac5l")
         XCTAssertEqual(card.live, false)
@@ -50,7 +50,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testCharge() {
-        let charge: Charge = buildFromFixtures(withName: "charge")
+        let charge: Charge = makeObject(fromFixturesWithName: "charge")
         XCTAssertEqual(charge.object, "charge")
         XCTAssertEqual(charge.id, "chrg_test_5086xlsx4lghk9bpb75")
         XCTAssertEqual(charge.status, ChargeStatus.successful)
@@ -80,7 +80,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testCustomer() {
-        let customer: Customer = buildFromFixtures(withName: "customer")
+        let customer: Customer = makeObject(fromFixturesWithName: "customer")
         XCTAssertEqual(customer.object, "customer")
         XCTAssertEqual(customer.id, "cust_test_5086xleuh9ft4bn0ac2")
         XCTAssertEqual(customer.live, false)
@@ -97,7 +97,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testDispute() {
-        let dispute: Dispute = buildFromFixtures(withName: "dispute")
+        let dispute: Dispute = makeObject(fromFixturesWithName: "dispute")
         XCTAssertEqual(dispute.object, "dispute")
         XCTAssertEqual(dispute.id, "dspt_test_4zgf15h89w8t775kcm8")
         XCTAssertEqual(dispute.live, false)
@@ -109,7 +109,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testEvent() {
-        let event: Event = buildFromFixtures(withName: "event")
+        let event: Event = makeObject(fromFixturesWithName: "event")
         XCTAssertEqual(event.object, "event")
         XCTAssertEqual(event.id, "evnt_test_526yctupnje5mbldskd")
         XCTAssertEqual(event.live, false)
@@ -123,7 +123,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testRecipient() {
-        let recipient: Recipient = buildFromFixtures(withName: "recipient")
+        let recipient: Recipient = makeObject(fromFixturesWithName: "recipient")
         XCTAssertEqual(recipient.object, "recipient")
         XCTAssertEqual(recipient.id, "recp_test_5086xmr74vxs0ajpo78")
         XCTAssertEqual(recipient.live, false)
@@ -145,7 +145,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testRefund() {
-        let refund: Refund = buildFromFixtures(withName: "refund")
+        let refund: Refund = makeObject(fromFixturesWithName: "refund")
         XCTAssertEqual(refund.object, "refund")
         XCTAssertEqual(refund.id, "rfnd_test_5086xm1i7ddm3apeaev")
         XCTAssertEqual(refund.location, "/charges/chrg_test_5086xlsx4lghk9bpb75/refunds/rfnd_test_5086xm1i7ddm3apeaev")
@@ -157,7 +157,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testToken() {
-        let token: Token = buildFromFixtures(withName: "token")
+        let token: Token = makeObject(fromFixturesWithName: "token")
         XCTAssertEqual(token.object, "token")
         XCTAssertEqual(token.id, "tokn_test_5086xl7c9k5rnx35qba")
         XCTAssertEqual(token.live, false)
@@ -170,7 +170,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testTransaction() {
-        let transaction: Transaction = buildFromFixtures(withName: "transaction")
+        let transaction: Transaction = makeObject(fromFixturesWithName: "transaction")
         XCTAssertEqual(transaction.object, "transaction")
         XCTAssertEqual(transaction.id, "trxn_test_5086v66oxpujs6nll93")
         XCTAssertEqual(transaction.type, TransactionType.credit)
@@ -180,7 +180,7 @@ class JSONTest: OmiseTestCase {
     }
     
     func testTransfer() {
-        let transfer: Transfer = buildFromFixtures(withName: "transfer")
+        let transfer: Transfer = makeObject(fromFixturesWithName: "transfer")
         XCTAssertEqual(transfer.object, "transfer")
         XCTAssertEqual(transfer.id, "trsf_test_5086uxn23hfaxv8nl0f")
         XCTAssertEqual(transfer.live, false)
@@ -201,7 +201,7 @@ class JSONTest: OmiseTestCase {
         XCTAssertEqual(bankAccount.name, "DEFAULT BANK ACCOUNT")
     }
     
-    fileprivate func buildFromFixtures<TObject: OmiseObject>(withName name: String) -> TObject {
+    fileprivate func makeObject<TObject: OmiseObject>(fromFixturesWithName name: String) -> TObject {
         let path = "Fixtures/objects/\(name)_object"
         guard let data = fixturesData(for: path) else {
             XCTFail("could not load fixtures path: \(path)")

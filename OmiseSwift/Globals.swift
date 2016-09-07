@@ -8,7 +8,7 @@ func resolveClient(given client: Client?, inside context: ResourceObject? = nil)
     return client ?? context?.attachedClient ?? Default.client
 }
 
-func checkParent(_ context: ResourceObject.Type, parent: ResourceObject? = nil) -> Bool {
+func checkParent(withContext context: ResourceObject.Type, parent: ResourceObject? = nil) -> Bool {
     if let parentType = context.info.parentType {
         guard let parentObject = parent, parentType == type(of: parentObject) else {
             omiseWarn("\(context) requires \(type(of: parent)) parent!")
@@ -19,7 +19,7 @@ func checkParent(_ context: ResourceObject.Type, parent: ResourceObject? = nil) 
     return true
 }
 
-func buildResourcePaths(_ context: ResourceObject.Type, parent: ResourceObject? = nil, id: String? = nil) -> [String] {
+func makeResourcePathsWith(context: ResourceObject.Type, parent: ResourceObject? = nil, id: String? = nil) -> [String] {
     var paths: [String] = []
     if let p = parent {
         paths = [type(of: p).info.path, p.id ?? ""] + paths

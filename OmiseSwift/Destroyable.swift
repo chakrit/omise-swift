@@ -9,12 +9,12 @@ public extension Destroyable where Self: ResourceObject {
         return DestroyOperation(
             endpoint: info.endpoint,
             method: "DELETE",
-            paths: buildResourcePaths(self, parent: parent, id: id)
+            paths: makeResourcePathsWith(context: self, parent: parent, id: id)
         )
     }
     
     public static func destroy(using given: Client? = nil, parent: ResourceObject? = nil, id: String, callback: DestroyOperation.Callback) -> Request<DestroyOperation.Result>? {
-        guard checkParent(self, parent: parent) else {
+        guard checkParent(withContext: self, parent: parent) else {
             return nil
         }
         

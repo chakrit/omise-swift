@@ -11,13 +11,13 @@ public extension Creatable where Self: ResourceObject {
         return CreateOperation(
             endpoint: info.endpoint,
             method: "POST",
-            paths: buildResourcePaths(self, parent: parent),
+            paths: makeResourcePathsWith(context: self, parent: parent),
             params: params
         )
     }
     
     public static func create(using given: Client? = nil, parent: ResourceObject? = nil, params: CreateParams, callback: CreateOperation.Callback) -> Request<CreateOperation.Result>? {
-        guard checkParent(self, parent: parent) else {
+        guard checkParent(withContext: self, parent: parent) else {
             return nil
         }
         

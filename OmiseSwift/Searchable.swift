@@ -52,7 +52,7 @@ public extension Searchable where Self: ResourceObject {
     
     public static func searchOperation(parent: ResourceObject?, params: SearchParams<FilterParams>?) -> SearchOperation {
         return SearchOperation(
-            endpoint: .API,
+            endpoint: .api,
             method: "GET",
             paths: ["search"],
             params: params
@@ -60,7 +60,7 @@ public extension Searchable where Self: ResourceObject {
     }
     
     public static func search(using given: Client? = nil, parent: ResourceObject? = nil, params: SearchParams<FilterParams>? = nil, callback: SearchOperation.Callback?) -> Request<SearchOperation.Result>? {
-        guard checkParent(self, parent: parent) else {
+        guard checkParent(withContext: self, parent: parent) else {
             return nil
         }
         
