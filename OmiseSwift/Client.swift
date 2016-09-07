@@ -23,11 +23,14 @@ open class Client: NSObject {
         do {
             let req: Request<TResult> = Request(client: self, operation: operation, callback: callback)
             return try req.start()
-            
         } catch let err as OmiseError {
-            performCallback() { callback?(.fail(err)) }
+            performCallback() {
+                callback?(.fail(err))
+            }
         } catch let err as NSError {
-            performCallback() { callback?(.fail(.io(err))) }
+            performCallback() {
+                callback?(.fail(.io(err)))
+            }
         }
         
         return nil

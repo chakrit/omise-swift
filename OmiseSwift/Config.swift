@@ -21,4 +21,15 @@ open class Config: NSObject {
         self.apiVersion = apiVersion
         self.callbackQueue = queue ?? OperationQueue.main
     }
+    
+    func apiKey(forHost host: String) -> String? {
+        let key: String?
+        if host.contains("vault.omise.co") {
+            key = publicKey
+        } else {
+            key = secretKey
+        }
+        
+        return key
+    }
 }

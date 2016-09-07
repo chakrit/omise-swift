@@ -1,7 +1,7 @@
 import Foundation
 
 public class DateComponentsConverter: Converter {
-    public typealias Target = NSDateComponents
+    public typealias Target = DateComponents
     
     static func makeScanner(forString string: String) -> Scanner {
         let scanner = Scanner(string: string)
@@ -40,7 +40,7 @@ public class DateComponentsConverter: Converter {
             year = lastInt
         }
         
-        let components = NSDateComponents()
+        var components = DateComponents()
         components.calendar = Calendar(identifier: .gregorian)
         
         components.year = year

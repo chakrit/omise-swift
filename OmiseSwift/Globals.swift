@@ -10,7 +10,7 @@ func resolveClient(given client: Client?, inside context: ResourceObject? = nil)
 
 func checkParent(_ context: ResourceObject.Type, parent: ResourceObject? = nil) -> Bool {
     if let parentType = context.info.parentType {
-        guard parentType == type(of: parent) else {
+        guard let parentObject = parent, parentType == type(of: parentObject) else {
             omiseWarn("\(context) requires \(type(of: parent)) parent!")
             return false
         }

@@ -37,7 +37,7 @@ public class DisputeParams: Params {
 }
 
 public class DisputeFilterParams: OmiseFilterParams {
-    public var created: NSDateComponents? {
+    public var created: DateComponents? {
         get { return get("created", DateComponentsConverter.self) }
         set { set("created", DateComponentsConverter.self, toValue: newValue) }
     }
@@ -69,8 +69,14 @@ extension Dispute: Searchable {
     public typealias FilterParams = DisputeFilterParams
 }
 
+public enum DisputeStatusQuery: String {
+    case open
+    case pending
+    case closed
+}
+
 extension Dispute {
-    public static func list(using given: Client? = nil, state: DisputeStatus, params: ListParams? = nil, callback: Dispute.ListOperation.Callback) -> Request<Dispute.ListOperation.Result>? {
+    public static func list(using given: Client? = nil, state: DisputeStatusQuery, params: ListParams? = nil, callback: Dispute.ListOperation.Callback) -> Request<Dispute.ListOperation.Result>? {
         let operation = ListOperation(
             endpoint: info.endpoint,
             method: "GET",
@@ -83,7 +89,7 @@ extension Dispute {
 }
 
 func exampleDispute() {
-    let _: [DisputeStatus] = [.open, .pending, .closed] // valid statuses
+    let _: [DisputeStatusQuery] = [.open, .pending, .closed] // valid statuses
     _ = Dispute.list(state: .open) { (result) in
         switch result {
         case let .success(list):

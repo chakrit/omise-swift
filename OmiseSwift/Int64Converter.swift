@@ -4,8 +4,8 @@ public class Int64Converter: Converter {
     public typealias Target = Int64
     
     public static func convertFromAttribute(_ value: Any?) -> Target? {
-        guard let n = value as? Int64 else { return nil }
-        return n
+        guard let n = value as? NSNumber else { return nil }
+        return n.int64Value
     }
     
     public static func convertToAttribute(_ value: Target?) -> Any? {

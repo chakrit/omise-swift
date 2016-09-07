@@ -10,7 +10,7 @@ open class Operation<TResult: OmiseObject> {
     open let params: Params?
     
     open var url: URL {
-        return buildUrl()
+        return buildURL()
     }
     
     open var payload: Data? {
@@ -24,7 +24,7 @@ open class Operation<TResult: OmiseObject> {
         self.params = params
     }
     
-    fileprivate func buildUrl() -> URL {
+    fileprivate func buildURL() -> URL {
         let url = pathComponents.reduce(endpoint.url as URL) { (url, segment) -> URL in
             return url.appendingPathComponent(segment)
         }

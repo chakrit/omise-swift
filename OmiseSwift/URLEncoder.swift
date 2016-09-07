@@ -42,8 +42,10 @@ open class URLEncoder {
         case let b as Bool:
             return b ? "true" : "false"
         
-        case let n:
+        case let n?:
             return "\(n)"
+        case nil:
+            return nil
         }
     }
 }

@@ -132,7 +132,7 @@ public class ChargeParams: Params {
 }
 
 public class ChargeFilterParams: OmiseFilterParams {
-    public var created: NSDateComponents? {
+    public var created: DateComponents? {
         get { return get("created", DateComponentsConverter.self) }
         set { set("created", DateComponentsConverter.self, toValue: newValue) }
     }
