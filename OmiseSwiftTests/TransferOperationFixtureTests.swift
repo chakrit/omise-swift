@@ -1,11 +1,3 @@
-//
-//  TransferOperationFixtureTests.swift
-//  OmiseSwift
-//
-//  Created by Pitiphong Phongpattranont on 8/29/2559 BE.
-//  Copyright © 2559 Omise. All rights reserved.
-//
-
 import XCTest
 import Omise
 

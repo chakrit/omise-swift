@@ -9,7 +9,7 @@ open class Request<TResult: OmiseObject>: NSObject {
     open let operation: Op
     open let callback: Op.Callback?
     
-     public init(client: Client, operation: Op, callback: Op.Callback?) {
+    public init(client: Client, operation: Op, callback: Op.Callback?) {
         self.client = client
         self.operation = operation
         self.callback = callback

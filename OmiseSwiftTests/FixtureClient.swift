@@ -1,11 +1,3 @@
-//
-//  FixtureClient.swift
-//  OmiseSwift
-//
-//  Created by Pitiphong Phongpattranont on 8/29/2559 BE.
-//  Copyright © 2559 Omise. All rights reserved.
-//
-
 import Foundation
 import Omise
 
@@ -97,8 +89,8 @@ extension Omise.Operation {
             preconditionFailure("Invalid URL")
         }
         
-        let filePath =  pathComponents.reduce(hostname) { (path, segment) -> String in
-            return (path as NSString).appendingPathComponent(segment) as String
+        let filePath =  pathComponents.reduce(hostname) { (path: String, segment: String) -> String in
+            return ((path as NSString).appendingPathComponent(segment)) as String
         }
         
         return (filePath + "-" + method.lowercased() as NSString).appendingPathExtension("json")! as String

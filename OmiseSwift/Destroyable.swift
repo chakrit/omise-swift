@@ -13,7 +13,7 @@ public extension Destroyable where Self: ResourceObject {
         )
     }
     
-    public static func destroy(using given: Client? = nil, parent: ResourceObject? = nil, id: String, callback: DestroyOperation.Callback) -> Request<DestroyOperation.Result>? {
+    public static func destroy(using given: Client? = nil, parent: ResourceObject? = nil, id: String, callback: @escaping DestroyOperation.Callback) -> Request<DestroyOperation.Result>? {
         guard checkParent(withContext: self, parent: parent) else {
             return nil
         }

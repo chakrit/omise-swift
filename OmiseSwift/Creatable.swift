@@ -16,7 +16,7 @@ public extension Creatable where Self: ResourceObject {
         )
     }
     
-    public static func create(using given: Client? = nil, parent: ResourceObject? = nil, params: CreateParams, callback: CreateOperation.Callback) -> Request<CreateOperation.Result>? {
+    public static func create(using given: Client? = nil, parent: ResourceObject? = nil, params: CreateParams, callback: @escaping CreateOperation.Callback) -> Request<CreateOperation.Result>? {
         guard checkParent(withContext: self, parent: parent) else {
             return nil
         }

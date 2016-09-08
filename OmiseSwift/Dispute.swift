@@ -76,7 +76,7 @@ public enum DisputeStatusQuery: String {
 }
 
 extension Dispute {
-    public static func list(using given: Client? = nil, state: DisputeStatusQuery, params: ListParams? = nil, callback: Dispute.ListOperation.Callback) -> Request<Dispute.ListOperation.Result>? {
+    public static func list(using given: Client? = nil, state: DisputeStatusQuery, params: ListParams? = nil, callback: @escaping Dispute.ListOperation.Callback) -> Request<Dispute.ListOperation.Result>? {
         let operation = ListOperation(
             endpoint: info.endpoint,
             method: "GET",

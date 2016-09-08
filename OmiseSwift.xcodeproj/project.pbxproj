@@ -367,8 +367,8 @@
 			children = (
 				22112D2A1CC79A9F00D0DB54 /* BoolConverter.swift */,
 				229873321CCDF1F900970F8C /* Converter.swift */,
-				220D1C3B1CC8E226006C7FD6 /* DateConverter.swift */,
 				8A82A7121D79786100A198A3 /* DateComponentsConverter.swift */,
+				220D1C3B1CC8E226006C7FD6 /* DateConverter.swift */,
 				22BF9BAA1CD2299600CD3CAD /* EnumConverter.swift */,
 				8AB1DC9C1D6ACD140055A325 /* Int64Converter.swift */,
 				2298738D1CCF675700970F8C /* IntConverter.swift */,
@@ -394,20 +394,19 @@
 		2270E3AB1CC78D4200F18814 /* OmiseSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
-				229873591CCE0B5A00970F8C /* Fixtures */,
 				2270E3C41CC78DDB00F18814 /* Info-iOS.plist */,
 				2270E3AE1CC78D4200F18814 /* Info-OSX.plist */,
 				22112D081CC7910700D0DB54 /* ConfigTest.swift */,
-				22BF9B9E1CD1F76100CD3CAD /* LiveTest.swift */,
 				8A07D2F31D73F5040030B68D /* FixtureClient.swift */,
 				8A07D2F61D73F8370030B68D /* FixtureTestCase.swift */,
+				22BF9B9E1CD1F76100CD3CAD /* LiveTest.swift */,
 				22112D091CC7910700D0DB54 /* OmiseTestCase.swift */,
 				229873751CCE29D700970F8C /* OperationTest.swift */,
 				229873851CCF565C00970F8C /* RequestTest.swift */,
-				98256FF11D225E3000F91436 /* TransferOperationsTest.swift */,
 				8A82A7091D795DCC00A198A3 /* SearchOperationTest.swift */,
-				8A07D2FD1D742B580030B68D /* Live Tests */,
+				98256FF11D225E3000F91436 /* TransferOperationsTest.swift */,
 				8A07D2FC1D742B4F0030B68D /* Fixture Tests */,
+				8A07D2FD1D742B580030B68D /* Live Tests */,
 				229873381CCDF8AA00970F8C /* Models */,
 			);
 			path = OmiseSwiftTests;
@@ -426,10 +425,11 @@
 		8A07D2FC1D742B4F0030B68D /* Fixture Tests */ = {
 			isa = PBXGroup;
 			children = (
-				8A07D2F91D741F430030B68D /* TransferOperationFixtureTests.swift */,
+				229873591CCE0B5A00970F8C /* Fixtures */,
 				8A07D2FE1D7436830030B68D /* ChargesOperationFixtureTests.swift */,
-				8A2698A11D743A2100515A0A /* RefundOperationFixtureTests.swift */,
 				8A2698A41D74417800515A0A /* DisputeOperationFixtureTests.swift */,
+				8A2698A11D743A2100515A0A /* RefundOperationFixtureTests.swift */,
+				8A07D2F91D741F430030B68D /* TransferOperationFixtureTests.swift */,
 			);
 			name = "Fixture Tests";
 			sourceTree = "<group>";

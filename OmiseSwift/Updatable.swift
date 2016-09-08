@@ -16,7 +16,7 @@ public extension Updatable where Self: ResourceObject {
         )
     }
     
-    public static func update(using given: Client? = nil, parent: ResourceObject? = nil, id: String, params: UpdateParams, callback: UpdateOperation.Callback) -> Request<UpdateOperation.Result>? {
+    public static func update(using given: Client? = nil, parent: ResourceObject? = nil, id: String, params: UpdateParams, callback: @escaping UpdateOperation.Callback) -> Request<UpdateOperation.Result>? {
         guard checkParent(withContext: self, parent: parent) else {
             return nil
         }

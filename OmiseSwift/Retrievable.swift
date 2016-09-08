@@ -13,7 +13,7 @@ public extension Retrievable where Self: ResourceObject {
         )
     }
     
-    public static func retrieve(using given: Client? = nil, parent: ResourceObject? = nil, id: String, callback: RetrieveOperation.Callback) -> Request<RetrieveOperation.Result>? {
+    public static func retrieve(using given: Client? = nil, parent: ResourceObject? = nil, id: String, callback: @escaping RetrieveOperation.Callback) -> Request<RetrieveOperation.Result>? {
         guard checkParent(withContext: self, parent: parent) else {
             return nil
         }
