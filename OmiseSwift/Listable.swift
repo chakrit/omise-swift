@@ -65,7 +65,7 @@ public extension Listable where Self: ResourceObject {
         let requestCallback: ListOperation.Callback = { result in
             switch result {
             case .success(let result):
-                let list = List(list: result, endpoint: operation.endpoint, paths: operation.pathComponents)
+                let list = List(endpoint: operation.endpoint, paths: operation.pathComponents, order: listParams?.order, list: result)
                 callback(.success(list))
             case .fail(let error):
                 callback(.fail(error))
@@ -77,6 +77,7 @@ public extension Listable where Self: ResourceObject {
     
     public static func makeLoadNextPageOperation(list: List<Self>, count: Int?) -> ListOperation {
         let listParams = ListParams()
+        listParams.order = list.order
         listParams.offset = list.loadedIndices.last?.advanced(by: 1) ?? 0
         listParams.limit = count ?? list.limit
         
@@ -91,7 +92,7 @@ public extension Listable where Self: ResourceObject {
         let requestCallback: ListOperation.Callback = { result in
             switch result {
             case .success(let result):
-                let insertedData = list.applyValues(value: result)
+                let insertedData = list.insert(from: result)
                 callback(.success(insertedData))
             case .fail(let error):
                 callback(.fail(error))
@@ -103,6 +104,7 @@ public extension Listable where Self: ResourceObject {
     
     public static func makeLoadPreviousPageOperation(list: List<Self>, count: Int?) -> ListOperation {
         let listParams = ListParams()
+        listParams.order = list.order
         listParams.offset = list.loadedFirstIndex.advanced(by: -list.limit)
         listParams.limit = count ?? list.limit
         
@@ -117,7 +119,7 @@ public extension Listable where Self: ResourceObject {
         let requestCallback: ListOperation.Callback = { result in
             switch result {
             case .success(let result):
-                let insertedData = list.applyValues(value: result)
+                let insertedData = list.insert(from: result)
                 callback(.success(insertedData))
             case .fail(let error):
                 callback(.fail(error))

@@ -9,33 +9,41 @@ public class List<TItem: OmiseObject> {
     
     public var limit: Int = 0
     public var total: Int = 0
-    public var data: [TItem] = []
+    public var data: [TItem] = [] {
+        didSet {
+            dataUpdatedHandler?(data)
+        }
+    }
     
     let endpoint: Endpoint
     let paths: [String]
+    
+    public var dataUpdatedHandler: (([TItem]) -> Void)?
     
     public var loadedFirstIndex: Int {
         return loadedIndices.first ?? loadedIndices.lowerBound
     }
     
-    public init(list: OmiseList<TItem>, endpoint: Endpoint, paths: [String]) {
+    public init(endpoint: Endpoint, paths: [String], order: Ordering?, list: OmiseList<TItem>? = nil) {
         self.endpoint = endpoint
         self.paths = paths
         
-        self.data = list.data
-        self.limit = list.limit ?? 0
-        self.total = list.total ?? 0
-        
-        if let from = list.from, let to = list.to {
+        self.data = list?.data ?? []
+        self.limit = list?.limit ?? 0
+        self.total = list?.total ?? 0
+      
+        if let order = order {
+          self.order = order
+        } else if let from = list?.from, let to = list?.to {
             self.order = from.compare(to) == .orderedDescending ? .reverseChronological : .chronological
         } else {
             self.order = .chronological
         }
-        self.from = list.from
-        self.to = list.to
+        self.from = list?.from
+        self.to = list?.to
         
-        let offset = list.offset ?? 0
-        loadedIndices = range(fromOffset: offset, limit: list.data.count)
+        let offset = list?.offset ?? 0
+        loadedIndices = range(fromOffset: offset, limit: list?.data.count ?? 0)
     }
     
     public func insert(from value: OmiseList<TItem>) -> [TItem] {
@@ -44,6 +52,7 @@ public class List<TItem: OmiseObject> {
             self.total = total
         }
         let valuesRange = range(fromOffset: offset, limit: min(limit, value.data.count))
+        self.limit = limit
         
         guard let side = loadedIndices.side(from: valuesRange) else { return [] }
         if side == .lower {
@@ -58,8 +67,8 @@ public class List<TItem: OmiseObject> {
         return value.data
     }
 }
-
  
+
 func range(fromOffset offset: Int, limit: Int) -> CountableRange<Int> {
     return offset..<(offset + limit)
 }

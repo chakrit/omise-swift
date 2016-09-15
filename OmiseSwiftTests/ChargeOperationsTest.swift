@@ -49,6 +49,7 @@ class ChargeOperationsTest: OmiseTestCase {
                     case let .success(loadedMoreList):
                         XCTAssertGreaterThan(loadedMoreList.count, 0)
                         XCTAssertEqual(transfersList.data.count, 25)
+                        XCTAssertEqual(transfersList.data.count, Set(transfersList.data.flatMap({ $0.id })).count)
                         XCTAssertEqual(transfersList.loadedIndices, 0..<25)
                     case .fail(let error):
                         XCTFail("\(error)")
@@ -79,7 +80,7 @@ class ChargeOperationsTest: OmiseTestCase {
             switch result {
             case let .success(transfersList):
                 XCTAssertNotNil(transfersList.data)
-                let list = List<Charge>(list: transfersList, endpoint: Endpoint.api, paths: [Charge.info.path])
+                let list = List<Charge>(endpoint: Endpoint.api, paths: [Charge.info.path], order: .chronological, list: transfersList)
                 XCTAssertEqual(list.loadedIndices, 30..<30)
 
                 list.loadPreviousPage(using: self.testClient, callback: { (firstLoadResult) in
@@ -98,6 +99,7 @@ class ChargeOperationsTest: OmiseTestCase {
                             case let .success(loadedMoreList):
                                 XCTAssertGreaterThan(loadedMoreList.count, 0)
                                 XCTAssertEqual(list.data.count, 25)
+                                XCTAssertEqual(transfersList.data.count, Set(transfersList.data.flatMap({ $0.id })).count)
                                 XCTAssertEqual(list.loadedIndices, 0..<25)
                             case .fail(let error):
                                 XCTFail("\(error)")
