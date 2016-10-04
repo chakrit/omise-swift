@@ -43,11 +43,11 @@ public enum Currency {
         }
     }
     
-    public func convertFromSubunit(value: Int64) -> Double {
+    public func convert(fromSubunit value: Int64) -> Double {
         return Double(value) / Double(factor)
     }
     
-    public func convertToSubunit(value: Double) -> Int64 {
+    public func convert(toSubunit value: Double) -> Int64 {
         return Int64(value * Double(factor))
     }
     
