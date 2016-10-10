@@ -6,7 +6,7 @@ public let identicalBasedCurrencyFactor = 1
 public enum Currency {
     case thb
     case jpy
-    case custom(code: String, numberOfFractionDigits: Int, factor: Int)
+    case custom(code: String, factor: Int)
     
     
     public var code: String {
@@ -15,7 +15,7 @@ public enum Currency {
             return "THB"
         case .jpy:
             return "JPY"
-        case.custom(code: let code, numberOfFractionDigits: _, factor: _):
+        case.custom(code: let code, factor: _):
             return code
         }
     }
@@ -32,7 +32,7 @@ public enum Currency {
             return centBasedCurrencyFactor
         case .jpy:
             return identicalBasedCurrencyFactor
-        case .custom(code: _, numberOfFractionDigits: _, factor: let factor):
+        case .custom(code: _, factor: let factor):
             return factor
         }
     }
