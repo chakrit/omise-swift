@@ -44,3 +44,49 @@ open class Client: NSObject {
         config.callbackQueue.addOperation(callback)
     }
 }
+
+
+extension Client: URLSessionDelegate {
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        let creditial: URLCredential?
+        let challengeDisposition: URLSession.AuthChallengeDisposition
+        defer {
+            completionHandler(challengeDisposition, creditial)
+        }
+        
+        guard let signature = config.pinningSignature else {
+            creditial = nil
+            challengeDisposition = .performDefaultHandling
+            return
+        }
+        
+        guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
+            let serverTrust = challenge.protectionSpace.serverTrust else {
+                creditial = nil
+                challengeDisposition = .cancelAuthenticationChallenge
+                return
+        }
+        var secresult = SecTrustResultType.invalid
+        let status = SecTrustEvaluate(serverTrust, &secresult)
+        
+        guard errSecSuccess == status,
+            let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0)else {
+                creditial = nil
+                challengeDisposition = .cancelAuthenticationChallenge
+                return
+        }
+        
+        let serverCertificateData = SecCertificateCopyData(serverCertificate)
+        let data = CFDataGetBytePtr(serverCertificateData);
+        let size = CFDataGetLength(serverCertificateData);
+        let cert1 = NSData(bytes: data, length: size)
+        if cert1.isEqual(to: signature) {
+            creditial = URLCredential(trust: serverTrust)
+            challengeDisposition = .useCredential
+        } else {
+            creditial = nil
+            challengeDisposition = .cancelAuthenticationChallenge
+        }
+    }
+}
+
