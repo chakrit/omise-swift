@@ -6,7 +6,7 @@ public let identicalBasedCurrencyFactor = 1
 public enum Currency {
     case thb
     case jpy
-    case custom(code: String, numberOfDigits: Int, factor: Int)
+    case custom(code: String, numberOfFractionDigits: Int, factor: Int)
     
     
     public var code: String {
@@ -15,19 +15,24 @@ public enum Currency {
             return "THB"
         case .jpy:
             return "JPY"
-        case.custom(code: let code, numberOfDigits: _, factor: _):
+        case.custom(code: let code, numberOfFractionDigits: _, factor: _):
             return code
         }
     }
     
-    public var numberOfDigits: Int {
+    public var symbol: String {
+        let locale = NSLocale(localeIdentifier: code)
+        return locale.displayName(forKey: NSLocale.Key.currencySymbol, value: code) ?? ""
+    }
+    
+    public var numberOfFractionDigits: Int {
         switch self {
         case .thb:
             return 2
         case .jpy:
             return 0
-        case .custom(code: _, numberOfDigits: let numberOfDigits, factor: _):
-            return numberOfDigits
+        case .custom(code: _, numberOfFractionDigits: let numberOfFractionDigits, factor: _):
+            return numberOfFractionDigits
         }
     }
     
@@ -38,7 +43,7 @@ public enum Currency {
             return centBasedCurrencyFactor
         case .jpy:
             return identicalBasedCurrencyFactor
-        case .custom(code: _, numberOfDigits: _, factor: let factor):
+        case .custom(code: _, numberOfFractionDigits: _, factor: let factor):
             return factor
         }
     }
