@@ -25,17 +25,6 @@ public enum Currency {
         return locale.displayName(forKey: NSLocale.Key.currencySymbol, value: code) ?? ""
     }
     
-    public var numberOfFractionDigits: Int {
-        switch self {
-        case .thb:
-            return 2
-        case .jpy:
-            return 0
-        case .custom(code: _, numberOfFractionDigits: let numberOfFractionDigits, factor: _):
-            return numberOfFractionDigits
-        }
-    }
-    
     /// A convertion factor represents how much Omise amount equals to 1 unit of this currency. eg. THB's factor is equals to 100.
     public var factor: Int {
         switch self {
