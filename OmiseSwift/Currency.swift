@@ -20,11 +20,6 @@ public enum Currency {
         }
     }
     
-    public var symbol: String {
-        let locale = NSLocale(localeIdentifier: code)
-        return locale.displayName(forKey: NSLocale.Key.currencySymbol, value: code) ?? ""
-    }
-    
     /// A convertion factor represents how much Omise amount equals to 1 unit of this currency. eg. THB's factor is equals to 100.
     public var factor: Int {
         switch self {
