@@ -3,20 +3,31 @@ import Foundation
 open class Client: NSObject {
     open static let sessionIdentifier = "omise.co"
     
-    let session: URLSession
+    var session: URLSession!
     let operationQueue: OperationQueue
     
     open let config: Config
+    
+    fileprivate let pinningSignature: Data? = {
+        let bundle = Bundle(for: Config.self)
+        if let certificateURL = bundle.url(forResource: "cert", withExtension: "der"),
+            let certificateData = try? Data(contentsOf: certificateURL) {
+            return certificateData
+        } else {
+            return nil
+        }
+    }()
     
     public init(config: Config) {
         self.config = config
         
         self.operationQueue = OperationQueue()
+        super.init()
+        
         self.session = URLSession(
             configuration: URLSessionConfiguration.ephemeral,
-            delegate: nil,
+            delegate: self,
             delegateQueue: operationQueue)
-        super.init()
     }
     
     open func call<TResult: OmiseObject>(_ operation: Operation<TResult>, callback: Operation<TResult>.Callback?) -> Request<TResult>? {
@@ -48,21 +59,21 @@ open class Client: NSObject {
 
 extension Client: URLSessionDelegate {
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        let creditial: URLCredential?
+        let credential: URLCredential?
         let challengeDisposition: URLSession.AuthChallengeDisposition
         defer {
-            completionHandler(challengeDisposition, creditial)
+            completionHandler(challengeDisposition, credential)
         }
         
-        guard let signature = config.pinningSignature else {
-            creditial = nil
+        guard let signature = pinningSignature else {
+            credential = nil
             challengeDisposition = .performDefaultHandling
             return
         }
         
         guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
             let serverTrust = challenge.protectionSpace.serverTrust else {
-                creditial = nil
+                credential = nil
                 challengeDisposition = .cancelAuthenticationChallenge
                 return
         }
@@ -71,7 +82,7 @@ extension Client: URLSessionDelegate {
         
         guard errSecSuccess == status,
             let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0)else {
-                creditial = nil
+                credential = nil
                 challengeDisposition = .cancelAuthenticationChallenge
                 return
         }
@@ -81,12 +92,13 @@ extension Client: URLSessionDelegate {
         let size = CFDataGetLength(serverCertificateData);
         let cert1 = NSData(bytes: data, length: size)
         if cert1.isEqual(to: signature) {
-            creditial = URLCredential(trust: serverTrust)
+            credential = URLCredential(trust: serverTrust)
             challengeDisposition = .useCredential
         } else {
-            creditial = nil
+            credential = nil
             challengeDisposition = .cancelAuthenticationChallenge
         }
     }
 }
+
 

@@ -34,7 +34,7 @@ func makeResourcePathsWith(context: ResourceObject.Type, parent: ResourceObject?
 }
 
 open class Default {
-    fileprivate static var _config: Config = Config(publicKey: nil, secretKey: nil, apiVersion: nil, queue: nil, pinningSignature: nil)
+    fileprivate static var _config: Config = Config(publicKey: nil, secretKey: nil, apiVersion: nil, queue: nil)
     fileprivate static var _client: Client? = nil
     
     open static var config: Config {

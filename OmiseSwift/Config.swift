@@ -7,8 +7,6 @@ open class Config: NSObject {
     
     open let callbackQueue: OperationQueue
 
-    public let pinningSignature: Data?
-
     public convenience init(secretKey: String) {
         self.init(publicKey: nil, secretKey: secretKey, apiVersion: nil, queue: nil)
     }
@@ -17,12 +15,11 @@ open class Config: NSObject {
         self.init(publicKey: publicKey, secretKey: secretKey, apiVersion: nil, queue: nil)
     }
     
-    public init(publicKey: String?, secretKey: String?, apiVersion: String?, queue: OperationQueue? = nil, pinningSignature: Data? = nil) {
+    public init(publicKey: String?, secretKey: String?, apiVersion: String?, queue: OperationQueue? = nil) {
         self.publicKey = publicKey
         self.secretKey = secretKey
         self.apiVersion = apiVersion
         self.callbackQueue = queue ?? OperationQueue.main
-        self.pinningSignature = pinningSignature
     }
     
     func apiKey(forHost host: String) -> String? {
