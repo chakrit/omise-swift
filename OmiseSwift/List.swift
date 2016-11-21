@@ -1,15 +1,15 @@
- import Foundation
+import Foundation
 
 
 public class List<TItem: OmiseObject> {
-    public var from: Date?
-    public var to: Date? 
+    private(set) public var from: Date?
+    private(set) public var to: Date?
     var loadedIndices = 0..<0
     public let order: Ordering
     
     public var limit: Int = 0
-    public var total: Int = 0
-    public var data: [TItem] = [] {
+    private(set) public var total: Int = 0
+    private(set) public var data: [TItem] = [] {
         didSet {
             dataUpdatedHandler?(data)
         }
