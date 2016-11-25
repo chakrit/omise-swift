@@ -63,13 +63,10 @@ public extension Listable where Self: ResourceObject {
         let client = resolveClient(given: given)
         
         let requestCallback: ListOperation.Callback = { result in
-            switch result {
-            case .success(let result):
-                let list = List(endpoint: operation.endpoint, paths: operation.pathComponents, order: listParams?.order, list: result)
-                callback(.success(list))
-            case .fail(let error):
-                callback(.fail(error))
-            }
+            let callbackResult = result.map({
+                List(endpoint: operation.endpoint, paths: operation.pathComponents, order: listParams?.order, list: $0)
+            })
+            callback(callbackResult)
         }
         
         return client.call(operation, callback: requestCallback)
@@ -90,13 +87,8 @@ public extension Listable where Self: ResourceObject {
         let client = resolveClient(given: given)
         
         let requestCallback: ListOperation.Callback = { result in
-            switch result {
-            case .success(let result):
-                let insertedData = list.insert(from: result)
-                callback(.success(insertedData))
-            case .fail(let error):
-                callback(.fail(error))
-            }
+            let callbackResult = result.map({ list.insert(from: $0) })
+            callback(callbackResult)
         }
         
         return client.call(operation, callback: requestCallback)
