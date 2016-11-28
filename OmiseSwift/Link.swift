@@ -43,3 +43,40 @@ public class Link: ResourceObject {
         set { set("payment_uri", StringConverter.self, toValue: newValue) }
     }
 }
+
+public class LinkParams: Params {
+    public var amount: Int64? {
+        get { return get("amount", Int64Converter.self) }
+        set { set("amount", Int64Converter.self, toValue: newValue) }
+    }
+    
+    public var currency: Currency? {
+        get { return get("currency", StringConverter.self).flatMap(Currency.init(code:)) }
+        set { set("currency", StringConverter.self, toValue: newValue?.code) }
+    }
+    
+    public var title: String? {
+        get { return get("title", StringConverter.self) }
+        set { set("title", StringConverter.self, toValue: newValue) }
+    }
+    
+    public var linkDescription: String? {
+        get { return get("description", StringConverter.self) }
+        set { set("description", StringConverter.self, toValue: newValue) }
+    }
+    
+    public var isMultiple: Bool? {
+        get { return get("multiple", BoolConverter.self) }
+        set { set("multiple", BoolConverter.self, toValue: newValue) }
+    }
+    
+}
+
+extension Link: Listable {}
+
+extension Link: Retrievable {}
+
+extension Link: Creatable {
+    public typealias CreateParams = LinkParams
+}
+
